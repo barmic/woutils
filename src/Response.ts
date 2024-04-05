@@ -1,4 +1,5 @@
 import { Numbers } from './tools/Numbers';
+import 'emoji-picker-element';
 
 export class Responses extends HTMLElement {
     query: string;
@@ -10,6 +11,7 @@ export class Responses extends HTMLElement {
 
     connectedCallback(): void {
         this.shadowRoot!.innerHTML = `<div id="responses"></div>`;
+        this.defaultWhenEmpty(this.shadowRoot!.getElementById('responses'));
     }
 
     static get observedAttributes() {
@@ -34,6 +36,18 @@ export class Responses extends HTMLElement {
             p.textContent = newValue + i;
             responses.appendChild(p);
         }
+        if (!responses.firstChild) {
+            this.defaultWhenEmpty(this.shadowRoot!.getElementById('responses'));
+        }
       }
+    }
+
+    defaultWhenEmpty(responses: HTMLElement) {
+        const emoji = document.createElement('emoji-picker');
+        emoji.addEventListener('emoji-click', event => {
+            console.log(event);
+            navigator.clipboard.writeText(event.detail.unicode);
+        });
+        responses.appendChild(emoji);
     }
 }
