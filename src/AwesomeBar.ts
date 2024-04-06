@@ -9,7 +9,7 @@ export class AwesomeBar extends HTMLElement {
     connectedCallback(): void {
         this.shadowRoot!.innerHTML = `
         <label for="name">Quoi ?</label>
-        <input type="text" id="name" name="name" size="40" />`;
+        <input type="text" id="name" name="name" size="40" autofocus />`;
 
         const input = this.shadowRoot!.querySelector('input');
 
@@ -26,6 +26,7 @@ export class AwesomeBar extends HTMLElement {
         }, 250);
 
         input.addEventListener('input', handleMouseMove);
+        input.focus();
     }
 
     get value() {

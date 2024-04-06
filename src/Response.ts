@@ -25,9 +25,11 @@ export class Responses extends HTMLElement {
             responses.removeChild(responses.lastChild);
         }
         if (Numbers.accept(newValue)) {
+            const box = document.createElement('mba-box');
             const tool = document.createElement(Numbers.elmentName());
             tool.setAttribute('query', newValue);
-            responses.appendChild(tool);
+            box.appendChild(tool);
+            responses.appendChild(box);
         }
 
         let i = 0;

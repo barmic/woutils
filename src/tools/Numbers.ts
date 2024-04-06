@@ -11,18 +11,18 @@ export class Numbers extends HTMLElement {
         Intl.NumberFormat
         this.shadowRoot!.innerHTML = `
             <div>
-                <h1>Number</h1>
+                <h2>Number</h2>
                 <dl>
                     <dt>${query}</dt>
                     <dd>decimal</dd>
 
-                    <dt>${query.toString(16)}</dt>
+                    <dt>0x${query.toString(16)}</dt>
                     <dd>hexa</dd>
 
-                    <dt>${query.toString(2)}</dt>
+                    <dt>O${query.toString(2)}</dt>
                     <dd>binary</dd>
 
-                    <dt>${query.toString(8)}</dt>
+                    <dt>0b${query.toString(8)}</dt>
                     <dd>octal</dd>
                 </dl>
             </div>`;
