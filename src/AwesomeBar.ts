@@ -8,10 +8,75 @@ export class AwesomeBar extends HTMLElement {
 
     connectedCallback(): void {
         this.shadowRoot!.innerHTML = `
+        <style>
+        *,
+        *::before,
+        *::after { 
+          box-sizing: border-box;
+        }
+        
+        .input-sizer {
+          display: inline-grid;
+          vertical-align: top;
+          align-items: center;
+          position: relative;
+          border-radius: 10px;
+          padding: .25em .5em;
+          margin: 5px;
+          background-color: var(--nord3);
+          
+          &.stacked {
+            padding: .5em;
+            align-items: stretch;
+            
+            &::after,
+            input,
+            textarea {
+              grid-area: 2 / 1;
+              color: var(--nord6);
+            }
+          }
+          
+          &::after,
+          input,
+          textarea {
+            width: auto;
+            min-width: 1em;
+            grid-area: 1 / 2;
+            font: inherit;
+            padding: 0.25em;
+            margin: 0;
+            resize: none;
+            background: none;
+            appearance: none;
+            border: none;
+          }
+          
+          span {
+            padding: 0.25em;
+          }
+          
+          &::after {
+            content: attr(data-value) ' ';
+            visibility: hidden;
+            white-space: pre-wrap;
+          }
+        }
+        
+        .input-sizer {
+          > span {
+            text-transform: uppercase;
+            font-size: 0.8em;
+            font-weight: bold;
+          }
+        }
+        </style>
+        <div class="input-sizer stacked">
         <label for="name">Quoi ?</label>
-        <input type="text" id="name" name="name" size="40" autofocus />`;
+        <textarea oninput="this.parentNode.dataset.value = this.value" rows="1" id="name" name="name"></textarea>
+        </div>`;
 
-        const input = this.shadowRoot!.querySelector('input');
+        const input = this.shadowRoot!.querySelector('textarea');
 
         const debounce = (callback, wait: number) => {
             let timeoutId = null;
